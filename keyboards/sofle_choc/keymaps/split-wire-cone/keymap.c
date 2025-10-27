@@ -15,27 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
-// Catppuccin Mocha color palette
-#define CATPPUCCIN_ROSEWATER 245, 224, 220
-#define CATPPUCCIN_FLAMINGO  242, 205, 205
-#define CATPPUCCIN_PINK      245, 194, 231
-#define CATPPUCCIN_MAUVE     203, 166, 247
-#define CATPPUCCIN_PURPLE    188, 137, 255
-#define CATPPUCCIN_BLUE      137, 180, 250
-#define CATPPUCCIN_CYAN      148, 226, 255
-#define CATPPUCCIN_TEAL      148, 226, 255
-#define CATPPUCCIN_GREEN     166, 227, 161
-#define CATPPUCCIN_YELLOW    249, 226, 130
-#define CATPPUCCIN_PEACH     250, 179, 135
-#define CATPPUCCIN_RED       243, 139, 168
-#define CATPPUCCIN_MAROON    235, 160, 172
-#define CATPPUCCIN_LAVENDER  180, 190, 254
-
 enum sofle_layers {
     _QWERTY,
-    _LOWER,
     _RAISE,
-    _ADJUST,
 };
 
 enum custom_keycodes { KC_QWERTY = SAFE_RANGE, KC_PRVWD, KC_NXTWD, KC_LSTRT, KC_LEND, KC_DLINE };
@@ -60,23 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_ENT, KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LGUI, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE, XXXXXXX, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS, KC_TAB, KC_LBRC, KC_RBRC, KC_BSLS, KC_LALT, KC_SPC, MO(_RAISE), KC_LCBR, KC_RCBR, KC_PLUS),
 
     /*
-     * LOWER
-     * ,-----------------------------------------.                    ,-----------------------------------------.
-     * |  `   |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
-     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |      |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | F12  |
-     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |      |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
-     * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
-     * |      |   =  |   -  |   +  |   {  |   }  |-------|    |-------|   [  |   ]  |   ;  |   :  |   \  |      |
-     * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *            |      |      |      |      | /       /       \      \ |      |      |      |      |
-     *            |      |      |      |      |/       /         \      \|      |      |      |      |
-     *            `----------------------------------'           '------''---------------------------'
-     */
-    [_LOWER] = LAYOUT(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_F12, _______, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, _______, KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______, _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
-
-    /*
      * RAISE
      * ,----------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -97,7 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
-    [_LOWER]  = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
     [_RAISE]  = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
 };
 #endif
@@ -105,7 +69,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #ifdef OLED_ENABLE
 
 static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0};
+    static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xa, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0};
 
     oled_write_P(qmk_logo, false);
 }
@@ -132,12 +96,6 @@ static void print_status_narrow(void) {
             break;
         case _RAISE:
             oled_write_P(PSTR("Raise"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adj\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
@@ -296,52 +254,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef RGB_MATRIX_ENABLE
 void keyboard_post_init_user(void) {
-    // Initialize RGB matrix with Catppuccin colors
     rgb_matrix_enable();
-    // Set overall theme to Catppuccin Mauve
-    rgb_matrix_set_color_all(CATPPUCCIN_MAUVE);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(249, 58, 97); // Catppuccin Mauve (HSV)
 }
 
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void) {
-    // Customize RGB per layer with Catppuccin colors
-    switch(get_highest_layer(layer_state)) {
-        case _QWERTY:
-            // Base layer - Mauve with Blue accents
-            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-                rgb_matrix_set_color(i, CATPPUCCIN_MAUVE);
-            }
-            // Highlight modifier keys in Blue
-            rgb_matrix_set_color(24, CATPPUCCIN_BLUE);   // Shift
-            rgb_matrix_set_color(48, CATPPUCCIN_BLUE);   // Shift right
-            break;
-        case _RAISE:
-            // Raise layer - Green accent
-            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-                rgb_matrix_set_color(i, CATPPUCCIN_GREEN);
-            }
-            break;
-        case _LOWER:
-            // Lower layer - Yellow accent
-            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-                rgb_matrix_set_color(i, CATPPUCCIN_YELLOW);
-            }
-            break;
-        case _ADJUST:
-            // Adjust layer - Red accent
-            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-                rgb_matrix_set_color(i, CATPPUCCIN_RED);
-            }
-            break;
-        default:
-            break;
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t layer = get_highest_layer(layer_state);
+    if (layer > 0) {
+        HSV hsv = {0, 255, 255};
+        switch(layer) {
+            case _RAISE:
+                hsv.h = 120; // Green
+                break;
+        }
+        RGB rgb = hsv_to_rgb(hsv);
+        for (uint8_t i = led_min; i < led_max; i++) {
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
     }
     return false;
 }
 #endif
 
-#ifdef ENCODER_ENABLE
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
