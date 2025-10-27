@@ -258,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv_noeeprom(249, 58, 97); // Catppuccin Mauve (HSV)
+    rgb_matrix_sethsv_noeeprom(137, 89, 209); // NORD Frost Blue #88C0D0 (HSV)
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
@@ -267,7 +267,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         HSV hsv = {0, 255, 255};
         switch(layer) {
             case _RAISE:
-                hsv.h = 120; // Green
+                hsv.h = 85;  // NORD Aurora Green #A3BE8C
+                hsv.s = 90;
+                hsv.v = 190;
                 break;
         }
         RGB rgb = hsv_to_rgb(hsv);
