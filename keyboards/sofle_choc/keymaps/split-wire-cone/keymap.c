@@ -80,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-    [_LOWER]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-    [_RAISE]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
+    [_QWERTY] = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
+    [_LOWER]  = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
+    [_RAISE]  = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
 };
 #endif
 
@@ -241,10 +241,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_COPY:
             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
+                register_mods(MOD_LGUI);
                 register_code(KC_C);
             } else {
-                unregister_mods(mod_config(MOD_LCTL));
+                unregister_mods(MOD_LGUI);
                 unregister_code(KC_C);
             }
             return false;
@@ -284,16 +284,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
+        // Left encoder - Volume control (inverted)
         if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
             tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
         }
     } else if (index == 1) {
+        // Right encoder - Switch workspaces/desktops
         if (clockwise) {
-            tap_code(KC_MNXT);
+            // Mac: Cmd+Right (next space), Windows: Ctrl+Win+Right (next desktop)
+            register_mods(MOD_LGUI | MOD_LCTL);
+            tap_code(KC_RIGHT);
+            unregister_mods(MOD_LGUI | MOD_LCTL);
         } else {
-            tap_code(KC_MPRV);
+            // Mac: Cmd+Left (previous space), Windows: Ctrl+Win+Left (previous desktop)
+            register_mods(MOD_LGUI | MOD_LCTL);
+            tap_code(KC_LEFT);
+            unregister_mods(MOD_LGUI | MOD_LCTL);
         }
     }
     return false;
