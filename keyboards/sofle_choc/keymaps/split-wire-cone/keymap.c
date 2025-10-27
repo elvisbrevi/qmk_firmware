@@ -75,17 +75,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            |      |      |      |      |/       /         \      \|      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
-    [_RAISE] = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_PSCR, KC_UP, KC_APP, XXXXXXX, KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC, _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, XXXXXXX, KC_BSPC, _______, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [_RAISE] = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_PSCR, KC_UP, KC_APP, XXXXXXX, KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC, _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, XXXXXXX, KC_BSPC, _______, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
+};
 
 #ifdef ENCODER_MAP_ENABLE
-
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-        [_QWERTY] = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-        [_LOWER]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-        [_RAISE]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-        [_ADJUST] = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
-    };
-
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
+    [_LOWER]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
+    [_RAISE]  = {{KC_VOLU, KC_VOLD}, {KC_MNXT, KC_MPRV}},
+};
 #endif
 
 #ifdef OLED_ENABLE
