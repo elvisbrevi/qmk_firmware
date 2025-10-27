@@ -15,6 +15,22 @@
  */
 #include QMK_KEYBOARD_H
 
+// Catppuccin Mocha color palette
+#define CATPPUCCIN_ROSEWATER 245, 224, 220
+#define CATPPUCCIN_FLAMINGO  242, 205, 205
+#define CATPPUCCIN_PINK      245, 194, 231
+#define CATPPUCCIN_MAUVE     203, 166, 247
+#define CATPPUCCIN_PURPLE    188, 137, 255
+#define CATPPUCCIN_BLUE      137, 180, 250
+#define CATPPUCCIN_CYAN      148, 226, 255
+#define CATPPUCCIN_TEAL      148, 226, 255
+#define CATPPUCCIN_GREEN     166, 227, 161
+#define CATPPUCCIN_YELLOW    249, 226, 130
+#define CATPPUCCIN_PEACH     250, 179, 135
+#define CATPPUCCIN_RED       243, 139, 168
+#define CATPPUCCIN_MAROON    235, 160, 172
+#define CATPPUCCIN_LAVENDER  180, 190, 254
+
 enum sofle_layers {
     _QWERTY,
     _LOWER,
@@ -279,6 +295,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+void keyboard_post_init_user(void) {
+    // Initialize RGB matrix with Catppuccin colors
+    rgb_matrix_enable();
+    // Set overall theme to Catppuccin Mauve
+    rgb_matrix_set_color_all(CATPPUCCIN_MAUVE);
+}
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+    // Customize RGB per layer with Catppuccin colors
+    switch(get_highest_layer(layer_state)) {
+        case _QWERTY:
+            // Base layer - Mauve with Blue accents
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+                rgb_matrix_set_color(i, CATPPUCCIN_MAUVE);
+            }
+            // Highlight modifier keys in Blue
+            rgb_matrix_set_color(24, CATPPUCCIN_BLUE);   // Shift
+            rgb_matrix_set_color(48, CATPPUCCIN_BLUE);   // Shift right
+            break;
+        case _RAISE:
+            // Raise layer - Green accent
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+                rgb_matrix_set_color(i, CATPPUCCIN_GREEN);
+            }
+            break;
+        case _LOWER:
+            // Lower layer - Yellow accent
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+                rgb_matrix_set_color(i, CATPPUCCIN_YELLOW);
+            }
+            break;
+        case _ADJUST:
+            // Adjust layer - Red accent
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+                rgb_matrix_set_color(i, CATPPUCCIN_RED);
+            }
+            break;
+        default:
+            break;
+    }
+    return false;
+}
+#endif
 
 #ifdef ENCODER_ENABLE
 
