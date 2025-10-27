@@ -34,17 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
      * | CMD  |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |   -  |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *            | Tab  |   [  |   ]  | Space| /       /       \ ALT  \ |  FN  |   {  |   }  |   +  |
+     *            | Tab  |   [  |   ]  | \    | / ALT   /       \ Space  \ |  FN  |   {  |   }  |   +  |
      *            |      |      |      |      |/       /         \      \|      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
 
-    [_QWERTY] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_ENT, KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LGUI, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE, XXXXXXX, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS, KC_TAB, KC_LBRC, KC_RBRC, KC_BSLS, KC_LALT, KC_SPC, MO(_RAISE), KC_LCBR, KC_RCBR, KC_PLUS),
+    [_QWERTY] = LAYOUT(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_LSFT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ENT,
+        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LGUI, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+                 KC_TAB,  KC_LBRC, KC_RBRC, KC_BSLS, KC_LALT,                   KC_SPC,  MO(_RAISE), KC_LCBR, KC_RCBR, KC_PLUS
+    ),
 
     /*
      * RAISE
      * ,----------------------------------------.                    ,-----------------------------------------.
-     * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+     * |  ´  |      |      |      |      |      |                    |      |      |      |      |      |      |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * | Esc  | Ins  | Pscr |  Up  | Menu |      |                    | PWrd | NWrd | DLine|      |      | Bspc |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -56,9 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            |      |      |      |      |/       /         \      \|      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
-    [_RAISE] = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_PSCR, KC_UP, KC_APP, XXXXXXX, KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC, _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, XXXXXXX, KC_BSPC, _______, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
+    [_RAISE] = LAYOUT(
+        _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+        _______, KC_INS,  KC_PSCR, KC_UP,   KC_APP,  XXXXXXX,                   KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  XXXXXXX, KC_BSPC,
+        _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______,
+                 _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______
+    )
 };
-
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
@@ -265,9 +276,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
         HSV hsv = {0, 255, 255};
-        switch(layer) {
+        switch (layer) {
             case _RAISE:
-                hsv.h = 85;  // NORD Aurora Green #A3BE8C
+                hsv.h = 85; // NORD Aurora Green #A3BE8C
                 hsv.s = 90;
                 hsv.v = 190;
                 break;
