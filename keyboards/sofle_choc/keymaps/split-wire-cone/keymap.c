@@ -20,7 +20,7 @@ enum sofle_layers {
     _RAISE,
 };
 
-enum custom_keycodes { KC_QWERTY = SAFE_RANGE, KC_PRVWD, KC_NXTWD, KC_LSTRT, KC_LEND, KC_DLINE };
+enum custom_keycodes { KC_QWERTY = SAFE_RANGE, KC_PRVWD, KC_NXTWD, KC_LSTRT, KC_LEND, KC_DLINE, KC_LNCH };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -39,13 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            `----------------------------------'           '------''---------------------------'
      */
 
-    [_QWERTY] = LAYOUT(
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ENT,
-        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LGUI, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-                 KC_LSFT, KC_LBRC, KC_RBRC, KC_BSLS, KC_LALT,                   MO(_RAISE), KC_SPC, KC_LCBR, KC_RCBR, KC_PLUS
-    ),
+    [_QWERTY] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_ENT, KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LGUI, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE, KC_LNCH, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS, KC_LCTL, KC_LBRC, KC_RBRC, KC_BSLS, KC_LALT, MO(_RAISE), KC_SPC, KC_LCBR, KC_RCBR, KC_PLUS),
 
     /*
      * RAISE
@@ -62,65 +56,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            |      |      |      |      |/       /         \      \|      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
-    [_RAISE] = LAYOUT(
-        KC_ESC,  _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-        _______, KC_INS,  KC_PSCR, KC_UP,   KC_APP,  XXXXXXX,                   KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC,
-        _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  XXXXXXX, KC_BSPC,
-        _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______,
-                 _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______
-    )
-};
+    [_RAISE] = LAYOUT(KC_GRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_PSCR, KC_UP, KC_APP, XXXXXXX, KC_PRVWD, KC_NXTWD, KC_DLINE, XXXXXXX, XXXXXXX, KC_BSPC, _______, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, XXXXXXX, KC_BSPC, _______, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
-    [_RAISE]  = {{KC_VOLD, KC_VOLU}, {KC_MNXT, KC_MPRV}},
+    [_QWERTY] = {{KC_VOLD, KC_VOLU}, {MS_WHLU, MS_WHLD}},
+    [_RAISE]  = {{KC_VOLD, KC_VOLU}, {MS_WHLU, MS_WHLD}},
 };
 #endif
 
 #ifdef OLED_ENABLE
 
 static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xa, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0};
-
-    oled_write_P(qmk_logo, false);
+    // Right side display - "ELIETTE" written vertically
+    oled_write_P(PSTR("\n"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  E"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  L"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  I"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  E"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  T"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  T"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  E"), false);
 }
 
 static void print_status_narrow(void) {
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("MODE"), false);
+    // Left side display - "AYLEN" written vertically
+    oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR(""), false);
-
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Base\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  A"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  Y"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  L"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  E"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("  N"), false);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
-    return rotation;
+    // Rotate both displays 270 degrees for vertical text
+    return OLED_ROTATION_270;
 }
 
 bool oled_task_user(void) {
@@ -261,6 +244,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
+        case KC_LNCH:
+            if (record->event.pressed) {
+                // Launchpad on macOS: Cmd+Space or F4 (mission control gesture)
+                // Using Cmd+Space as it's more universal
+                register_mods(MOD_LGUI);
+                register_code(KC_SPC);
+            } else {
+                unregister_mods(MOD_LGUI);
+                unregister_code(KC_SPC);
+            }
+            return false;
     }
     return true;
 }
@@ -274,6 +268,7 @@ void keyboard_post_init_user(void) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
+
     if (layer > 0) {
         HSV hsv = {0, 255, 255};
         switch (layer) {
@@ -287,7 +282,27 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         for (uint8_t i = led_min; i < led_max; i++) {
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
+
+        // Highlight E, S, D, F keys in brighter green on RAISE layer
+        if (layer == _RAISE) {
+            HSV green_hsv = {85, 255, 255}; // Brighter green for ESDF
+            RGB green_rgb = hsv_to_rgb(green_hsv);
+            // Try different LED indices to find the correct ones
+            // Based on physical keyboard layout, let me try per-key LEDs
+            rgb_matrix_set_color(17, green_rgb.r, green_rgb.g, green_rgb.b); // Try for E
+            rgb_matrix_set_color(22, green_rgb.r, green_rgb.g, green_rgb.b); // Try for S
+            rgb_matrix_set_color(23, green_rgb.r, green_rgb.g, green_rgb.b); // Try for D
+            rgb_matrix_set_color(27, green_rgb.r, green_rgb.g, green_rgb.b); // Try for F
+        }
     }
+
+    // Always highlight space key in green (do this AFTER layer colors so it's always visible)
+    HSV space_hsv = {85, 128, 128}; // Green
+    RGB space_rgb = hsv_to_rgb(space_hsv);
+    // Try different indices for space
+    rgb_matrix_set_color(33, space_rgb.r, space_rgb.g, space_rgb.b); // Try index 33
+    rgb_matrix_set_color(34, space_rgb.r, space_rgb.g, space_rgb.b); // Try index 34
+
     return false;
 }
 #endif
@@ -303,16 +318,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     } else if (index == 1) {
-        // Right encoder - Switch workspaces/desktops
         if (clockwise) {
             // Mac: Cmd+Right (next space), Windows: Ctrl+Win+Right (next desktop)
             register_mods(MOD_LGUI | MOD_LCTL);
-            tap_code(KC_RIGHT);
+            tap_code(KC_LEFT);
             unregister_mods(MOD_LGUI | MOD_LCTL);
         } else {
             // Mac: Cmd+Left (previous space), Windows: Ctrl+Win+Left (previous desktop)
             register_mods(MOD_LGUI | MOD_LCTL);
-            tap_code(KC_LEFT);
+            tap_code(KC_RIGHT);
             unregister_mods(MOD_LGUI | MOD_LCTL);
         }
     }

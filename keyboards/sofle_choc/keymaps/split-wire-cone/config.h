@@ -24,6 +24,11 @@
 // I've found this helps with some ProMicros where the slave does not boot
 #define SPLIT_USB_DETECT
 
+// Encoder button support (click on encoder)
+// Note: You may need to configure the actual pin based on your hardware
+// Common encoder button pin for right encoder might be B5 or similar
+// #define ENCODERS_PAD_B { B5 } // Uncomment and adjust if your encoder has a button
+
 #define RGB_MATRIX_SLEEP     // turn off effects when suspended
 #define SPLIT_TRANSPORT_MIRROR             // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100  // limits maximum brightness of LEDs (max 255). Higher may cause the controller to crash.
